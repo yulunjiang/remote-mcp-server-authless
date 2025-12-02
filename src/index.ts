@@ -4,6 +4,10 @@ import { z } from 'zod';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { handleChatRequest } from './api/chat-handler.js';
+import OpenAI from 'openai';
+
+
+var openai = null;
 
 export class MyMCP extends McpAgent{
 
@@ -49,9 +53,21 @@ this.server.tool(
 }
 
 export default {
-  async fetch(request, env) {
-    return new Response(JSON.stringify(this.env, null, 2), {
-      headers: { "Content-Type": "application/json" }
+	fetch(request: Request, env: Env, ctx: ExecutionContext) {
+		const url = new URL(request.url);
+    openai = new OpenAI({
+      apiKey: env.API_HOST
     });
-  }
-}
+		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
+			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
+		}
+
+		if (url.pathname === "/mcp") {
+			return MyMCP.serve("/mcp").fetch(request, env, ctx);
+		}
+
+		return new Response("Not found", { status: 404 });
+	},
+};
+
+export { openai };

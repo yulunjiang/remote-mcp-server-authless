@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { handleChatRequest } from './api/chat-handler.js';
-import { initOpenAI, openai } from "./agent/openaiClient.js";
+import { initOpenAI } from "./agent/openaiClient.js";
 
 export class MyMCP extends McpAgent{
 

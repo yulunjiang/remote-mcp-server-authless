@@ -9,7 +9,7 @@
 
 import { Agent, run, withTrace } from '@openai/agents';
 import { ChatMcpServer } from './chat-mcp-server.js';
-import { openai } from "./openaiClient.js";
+import { openai } from "../agent/openaiClient.js";
 
 async function main() {
   // 1. 初始化 Chat MCP Server

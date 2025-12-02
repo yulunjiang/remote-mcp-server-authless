@@ -11,7 +11,7 @@
 
 import { Agent, MCPServerSSE } from '@openai/agents';
 import dotenv from 'dotenv';
-import { openai } from "./openaiClient.js";
+import { openai } from "../agent/openaiClient.js";
 
 
 

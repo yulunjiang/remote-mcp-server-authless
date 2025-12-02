@@ -14,7 +14,7 @@ import { z } from 'zod';
 import { retrieveUsage } from './usage-helper.js';
 import { getCurrentUserId } from '../agent/context-store.js';
 import dotenv from 'dotenv';
-import { openai } from "./openaiClient.js";
+import { openai } from "../agent/openaiClient.js";
 
 
 /**

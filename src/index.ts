@@ -20,7 +20,7 @@ import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
-export class ChatMcpServer extends McpAgent{
+export class MyMCP extends McpAgent{
   server = null;
   agentInstance = null;
 

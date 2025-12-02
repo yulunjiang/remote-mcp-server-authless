@@ -52,22 +52,30 @@ this.server.tool(
   }
 }
 
+// export default {
+// 	fetch(request: Request, env: Env, ctx: ExecutionContext) {
+// 		const url = new URL(request.url);
+//     openai = new OpenAI({
+//       apiKey: env.API_HOST
+//     });
+// 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
+// 			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
+// 		}
+
+// 		if (url.pathname === "/mcp") {
+// 			return MyMCP.serve("/mcp").fetch(request, env, ctx);
+// 		}
+
+// 		return new Response("Not found", { status: 404 });
+// 	},
+// };
+
 export default {
-	fetch(request: Request, env: Env, ctx: ExecutionContext) {
-		const url = new URL(request.url);
-    openai = new OpenAI({
-      apiKey: env.API_HOST
+  async fetch(request, env) {
+    return new Response(JSON.stringify(env.API_HOST, null, 2), {
+      headers: { "Content-Type": "application/json" }
     });
-		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
-			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
-		}
-
-		if (url.pathname === "/mcp") {
-			return MyMCP.serve("/mcp").fetch(request, env, ctx);
-		}
-
-		return new Response("Not found", { status: 404 });
-	},
-};
+  }
+}
 
 export { openai };

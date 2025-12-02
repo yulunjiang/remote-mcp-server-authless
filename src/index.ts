@@ -50,7 +50,7 @@ this.server.tool(
 
 export default {
   async fetch(request, env) {
-    return new Response(JSON.stringify(env, null, 2), {
+    return new Response(JSON.stringify(this.env, null, 2), {
       headers: { "Content-Type": "application/json" }
     });
   }

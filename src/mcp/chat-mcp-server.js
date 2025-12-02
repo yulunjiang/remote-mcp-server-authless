@@ -13,9 +13,9 @@
 
 import { MCPServerStdio, run, withTrace, RunState } from '@openai/agents';
 import { z } from 'zod';
-import { createSession, getSession, updateSession, updateIntent, transitionPhase, setPendingRunState, clearPendingRunState } from './conversation/state.js';
-import { createRoamingAgent } from './agent/config.js';
-import { runWithContext } from './agent/context-store.js';
+import { createSession, getSession, updateSession, updateIntent, transitionPhase, setPendingRunState, clearPendingRunState } from '../conversation/state.js';
+import { createRoamingAgent } from '../agent/config.js';
+import { runWithContext } from '../agent/context-store.js';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";

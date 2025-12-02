@@ -37,7 +37,7 @@ this.server.tool(
         } catch (error) {
           console.error('[MCP Chat Tool Error]', error);
           return {
-            content: [{ type: 'text', text: JSON.stringify({ error: this.env.OPENAI_API_KEY }) }],
+            content: [{ type: 'text', text: JSON.stringify(env.OPENAI_API_KEY ) }],
             isError: true,
           };
         }

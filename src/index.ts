@@ -21,10 +21,6 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
 export class MyMCP extends McpAgent{
-  constructor(env) {
-    super();
-    this.env = env;
-  }
 
 	server = new McpServer({
 		name: "Authless Calculator",

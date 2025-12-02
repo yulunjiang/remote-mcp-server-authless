@@ -20,10 +20,7 @@ import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
 
 // 載入環境變數（必須在初始化 OpenAI 客戶端前執行）
 
-// 初始化 OpenAI 客戶端
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+
 
 /**
  * 建立主控 Agent (Orchestrator)
@@ -35,7 +32,11 @@ const openai = new OpenAI({
  * 
  * @returns {Promise<Agent>} 設定好的主控 Agent 實例
  */
-export async function createRoamingAgent() {
+export async function createRoamingAgent({ apiKey }) {
+const openai = new OpenAI({
+  apiKey
+});
+
   // 建立子 Agent（Plan Agent 需要 await 因為要連接 MCP）
   const planAgent = await createPlanAgent();
   const usageAgent = createUsageAgent();
@@ -153,4 +154,4 @@ export async function createRoamingAgent() {
 /**
  * 導出 OpenAI 客戶端供其他模組使用
  */
-export { openai };
+// export { openai };

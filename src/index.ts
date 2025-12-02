@@ -21,6 +21,11 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
 export class MyMCP extends McpAgent{
+  constructor(env) {
+    super();
+    this.env = env;
+  }
+
   server = null;
   agentInstance = null;
 
@@ -163,7 +168,9 @@ export class MyMCP extends McpAgent{
 
   async getAgent() {
     if (!this.agentInstance) {
-      this.agentInstance = await createRoamingAgent();
+      this.agentInstance = await createRoamingAgent({
+      apiKey: this.env.OPENAI_API_KEY,
+    });
     }
     return this.agentInstance;
   }
@@ -174,11 +181,11 @@ export default {
 		const url = new URL(request.url);
 
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
-			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
+			return MyMCP.serveSSE("/sse", { env }).fetch(request, env, ctx);
 		}
 
 		if (url.pathname === "/mcp") {
-			return MyMCP.serve("/mcp").fetch(request, env, ctx);
+			return MyMCP.serve("/mcp", { env }).fetch(request, env, ctx);
 		}
 
 		return new Response("Not found", { status: 404 });

@@ -32,7 +32,7 @@ this.server.tool(
           // const result = await handleChatRequest({ userId, message, sessionId });
           
           return {
-            content: [{ type: 'text', text: env.OPENAI_API_KEY }],
+            content: [{ type: 'text', text: env.API_HOST }],
           };
         } catch (error) {
           console.error('[MCP Chat Tool Error]', error);
@@ -53,7 +53,7 @@ export default {
 		const url = new URL(request.url);
 
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
-			return env.OPENAI_API_KEY;
+			return env.API_HOST;
 		}
 
 		if (url.pathname === "/mcp") {

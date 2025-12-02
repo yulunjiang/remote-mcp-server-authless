@@ -14,9 +14,8 @@ import { z } from 'zod';
 import { retrieveUsage } from './usage-helper.js';
 import { getCurrentUserId } from '../agent/context-store.js';
 import dotenv from 'dotenv';
+import { openai } from "./openaiClient.js";
 
-// 載入環境變數
-dotenv.config();
 
 /**
  * 定義 retrieveUsage 工具（自動取得 userId from context store）
@@ -44,6 +43,7 @@ const retrieveUsageTool = tool({
 export function createUsageAgent() {
   return new Agent({
     name: 'Usage Agent',
+    openai,
     model: 'gpt-4o',
     instructions: `
 你是一個專門查詢使用者網路用量的助理。

@@ -4,10 +4,7 @@ import { z } from 'zod';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { handleChatRequest } from './api/chat-handler.js';
-import OpenAI from 'openai';
-
-
-var openai = null;
+import { initOpenAI, openai } from "./agent/openaiClient.js";
 
 export class MyMCP extends McpAgent{
 
@@ -41,7 +38,7 @@ this.server.tool(
         } catch (error) {
           console.error('[MCP Chat Tool Error]', error);
           return {
-            content: [{ type: 'text', text: JSON.stringify(env.API_HOST) }],
+            content: [{ type: 'text', text: JSON.stringify({ error: error.message }) }],
             isError: true,
           };
         }
@@ -55,9 +52,8 @@ this.server.tool(
 export default {
 	fetch(request: Request, env: Env, ctx: ExecutionContext) {
 		const url = new URL(request.url);
-    openai = new OpenAI({
-      apiKey: env.API_HOST
-    });
+    initOpenAI(env);   // 每次 request 時注入 env，初始化 openai
+
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
 			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
 		}
@@ -70,12 +66,3 @@ export default {
 	},
 };
 
-// export default {
-//   async fetch(request, env) {
-//     return new Response(JSON.stringify(env.API_HOST, null, 2), {
-//       headers: { "Content-Type": "application/json" }
-//     });
-//   }
-// }
-
-export { openai };

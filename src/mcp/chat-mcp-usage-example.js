@@ -9,6 +9,7 @@
 
 import { Agent, run, withTrace } from '@openai/agents';
 import { ChatMcpServer } from './chat-mcp-server.js';
+import { openai } from "./openaiClient.js";
 
 async function main() {
   // 1. 初始化 Chat MCP Server
@@ -18,6 +19,7 @@ async function main() {
   // 2. 建立一個使用 chat tool 的 Agent
   const coordinatorAgent = new Agent({
     name: 'Coordinator Agent',
+    openai,
     instructions: 
       '你是一個協調者，可以使用 chat tool 與漫遊助理進行對話。' +
       '當使用者提出漫遊相關問題時，使用 chat tool 來處理。',

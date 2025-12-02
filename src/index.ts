@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { handleChatRequest } from './api/chat-handler.js';
+import { env } from "cloudflare:workers";
 
 export class MyMCP extends McpAgent{
 

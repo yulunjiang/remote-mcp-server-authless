@@ -29,15 +29,15 @@ this.server.tool(
       async ({ userId, message, sessionId }) => {
         try {
           // 呼叫共用的處理函數
-          // const result = await handleChatRequest({ userId, message, sessionId });
+          const result = await handleChatRequest({ userId, message, sessionId });
           
           return {
-            content: [{ type: 'text', text: env.API_HOST }],
+            content: [{ type: 'text', text: JSON.stringify(result) }],
           };
         } catch (error) {
           console.error('[MCP Chat Tool Error]', error);
           return {
-            content: [{ type: 'text', text: JSON.stringify("") }],
+            content: [{ type: 'text', text: JSON.stringify(env.API_HOST ) }],
             isError: true,
           };
         }
@@ -53,7 +53,7 @@ export default {
 		const url = new URL(request.url);
 
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
-			return env.API_HOST;
+			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
 		}
 
 		if (url.pathname === "/mcp") {

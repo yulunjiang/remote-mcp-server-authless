@@ -20,10 +20,6 @@ import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
 
 // 載入環境變數（必須在初始化 OpenAI 客戶端前執行）
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error("OPENAI_API_KEY is missing in environment variables");
-}
-
 // 初始化 OpenAI 客戶端
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY

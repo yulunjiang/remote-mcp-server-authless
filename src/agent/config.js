@@ -34,7 +34,7 @@ import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
  */
 export async function createRoamingAgent() {
 const openai = new OpenAI({
-  apiKey: this.env.OPENAI_API_KEY
+  apiKey: this.env.API_HOST
 });
 
   // 建立子 Agent（Plan Agent 需要 await 因為要連接 MCP）

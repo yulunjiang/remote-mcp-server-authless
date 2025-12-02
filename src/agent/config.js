@@ -32,9 +32,9 @@ import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
  * 
  * @returns {Promise<Agent>} 設定好的主控 Agent 實例
  */
-export async function createRoamingAgent({ apiKey }) {
+export async function createRoamingAgent() {
 const openai = new OpenAI({
-  apiKey
+  apiKey: this.env.OPENAI_API_KEY
 });
 
   // 建立子 Agent（Plan Agent 需要 await 因為要連接 MCP）

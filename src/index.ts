@@ -167,9 +167,7 @@ export class MyMCP extends McpAgent{
 
   async getAgent() {
     if (!this.agentInstance) {
-      this.agentInstance = await createRoamingAgent({
-      apiKey: this.env.OPENAI_API_KEY,
-    });
+      this.agentInstance = await createRoamingAgent();
     }
     return this.agentInstance;
   }

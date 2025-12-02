@@ -19,11 +19,11 @@ import { createUsageAgent } from '../mcp/usage-agent.js';
 import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
 
 // 載入環境變數（必須在初始化 OpenAI 客戶端前執行）
-dotenv.config();
+
 
 // 初始化 OpenAI 客戶端
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY ?? OPENAI_API_KEY
 });
 
 /**

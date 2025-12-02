@@ -11,9 +11,9 @@
 
 import { Agent, MCPServerSSE } from '@openai/agents';
 import dotenv from 'dotenv';
+import { openai } from "../agent/openaiClient.js";
 
-// 載入環境變數
-dotenv.config();
+
 
 // MCP Server SSE 連接配置
 let mcpServer = null;
@@ -57,6 +57,7 @@ export async function createPlanAgent() {
   
   return new Agent({
     name: 'Plan Agent',
+    openai,
     model: 'gpt-4o',
     instructions: `
 你是一個專門查詢漫遊方案的助理。

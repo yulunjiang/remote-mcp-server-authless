@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { handleChatRequest } from './api/chat-handler.js';
+import { initOpenAI } from "./agent/openaiClient.js";
 
 export class MyMCP extends McpAgent{
 
@@ -51,6 +52,7 @@ this.server.tool(
 export default {
 	fetch(request: Request, env: Env, ctx: ExecutionContext) {
 		const url = new URL(request.url);
+    initOpenAI(env);   // 每次 request 時注入 env，初始化 openai
 
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
 			return MyMCP.serveSSE("/sse").fetch(request, env, ctx);
@@ -63,3 +65,4 @@ export default {
 		return new Response("Not found", { status: 404 });
 	},
 };
+

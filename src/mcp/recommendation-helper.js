@@ -11,9 +11,8 @@
 
 import { Agent } from '@openai/agents';
 import dotenv from 'dotenv';
+import { openai } from "../agent/openaiClient.js";
 
-// 載入環境變數
-dotenv.config();
 
 /**
  * 建立 Recommendation Agent
@@ -26,6 +25,7 @@ dotenv.config();
 export function createRecommendationAgent() {
   return new Agent({
     name: 'Recommendation Agent',
+    openai,
     model: 'gpt-4o',
     instructions: `
 你是一個專業的電信漫遊方案推薦專家。

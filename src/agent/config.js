@@ -17,6 +17,8 @@ import dotenv from 'dotenv';
 import { createPlanAgent } from '../mcp/plans-helper.js';
 import { createUsageAgent } from '../mcp/usage-agent.js';
 import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
+import { openai } from "./openaiClient.js";
+
 
 // 載入環境變數（必須在初始化 OpenAI 客戶端前執行）
 
@@ -33,9 +35,9 @@ import { createRecommendationAgent } from '../mcp/recommendation-helper.js';
  * @returns {Promise<Agent>} 設定好的主控 Agent 實例
  */
 export async function createRoamingAgent() {
-const openai = new OpenAI({
-  apiKey: this.env.API_HOST
-});
+// const openai = new OpenAI({
+//   apiKey: this.env.NAME
+// });
 
   // 建立子 Agent（Plan Agent 需要 await 因為要連接 MCP）
   const planAgent = await createPlanAgent();
@@ -45,6 +47,7 @@ const openai = new OpenAI({
   // 建立主控 Agent，將子 Agent 包裝成工具
   const agent = new Agent({
     name: '漫遊客服助理',
+    openai,
     model: 'gpt-4o',
     instructions: `
 你是一個專業且友善的電信漫遊客服助理。你的任務是幫助使用者找到最適合的漫遊上網方案。

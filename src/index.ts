@@ -4,7 +4,6 @@ import { z } from 'zod';
 import { McpAgent } from "agents/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { handleChatRequest } from './api/chat-handler.js';
-import { env } from "cloudflare:workers";
 
 export class MyMCP extends McpAgent{
 
@@ -30,15 +29,15 @@ this.server.tool(
       async ({ userId, message, sessionId }) => {
         try {
           // 呼叫共用的處理函數
-          const result = await handleChatRequest({ userId, message, sessionId });
+          // const result = await handleChatRequest({ userId, message, sessionId });
           
           return {
-            content: [{ type: 'text', text: JSON.stringify(result) }],
+            content: [{ type: 'text', text: env.OPENAI_API_KEY }],
           };
         } catch (error) {
           console.error('[MCP Chat Tool Error]', error);
           return {
-            content: [{ type: 'text', text: JSON.stringify(env.OPENAI_API_KEY ) }],
+            content: [{ type: 'text', text: JSON.stringify("") }],
             isError: true,
           };
         }
@@ -54,11 +53,11 @@ export default {
 		const url = new URL(request.url);
 
 		if (url.pathname === "/sse" || url.pathname === "/sse/message") {
-			return MyMCP.serveSSE("/sse", {env}).fetch(request, env, ctx);
+			return env.OPENAI_API_KEY;
 		}
 
 		if (url.pathname === "/mcp") {
-			return MyMCP.serve("/mcp", {env}).fetch(request, env, ctx);
+			return MyMCP.serve("/mcp").fetch(request, env, ctx);
 		}
 
 		return new Response("Not found", { status: 404 });
